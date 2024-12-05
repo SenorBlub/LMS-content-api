@@ -11,7 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-var mongoClient = new MongoClient("mongodb://localhost:27017");
+var connectionUrl = builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionDatabase = builder.Configuration.GetConnectionString("DefaultDatabase");
+var mongoClient = new MongoClient(connectionUrl);
 var mongoDatabase = mongoClient.GetDatabase("testDBtest");
 builder.Services.AddSingleton<IMongoDatabase>(mongoDatabase);
 builder.Services.AddScoped<IContentRepository, ContentRepository>();
