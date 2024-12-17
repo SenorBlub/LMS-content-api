@@ -6,15 +6,21 @@ using MongoDB.Driver;
 using Newtonsoft.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-var connectionUrl = builder.Configuration.GetConnectionString("DefaultConnection");
-var connectionDatabase = builder.Configuration.GetConnectionString("DefaultDatabase");
+//!TODO add env handling for kuber
+
+var connectionString = Env.GetString("DB_URL");
+var databaseName = Env.GetString("DB_NAME");
+
+var connectionUrl = connectionString;
+var connectionDatabase = databaseName;
 var mongoClient = new MongoClient(connectionUrl);
-var mongoDatabase = mongoClient.GetDatabase("testDBtest");
+var mongoDatabase = mongoClient.GetDatabase(connectionDatabase);
 builder.Services.AddSingleton<IMongoDatabase>(mongoDatabase);
 builder.Services.AddScoped<IContentRepository, ContentRepository>();
 builder.Services.AddScoped<IContentService, ContentService>();
