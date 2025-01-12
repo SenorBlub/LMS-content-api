@@ -41,7 +41,7 @@ namespace LMS_content_api.Controllers
 		}
 
 		[HttpGet("user/{userId:guid}")]
-		public async Task<IActionResult> GetUserContent(Guid userId)
+		public async Task<IActionResult> GetUserContent([FromRoute] Guid userId)
 		{
 			if (userId == Guid.Empty)
 				return BadRequest("User ID cannot be empty.");
@@ -55,7 +55,7 @@ namespace LMS_content_api.Controllers
 		}
 
 		[HttpPut("{contentId:guid}")]
-		public async Task<IActionResult> UpdateContent(Guid contentId, [FromBody] Content updatedContent)
+		public async Task<IActionResult> UpdateContent([FromRoute] Guid contentId, [FromBody] Content updatedContent)
 		{
 			if (updatedContent == null || contentId == Guid.Empty || updatedContent.Id != contentId)
 				return BadRequest("Invalid content data or mismatched ID.");
@@ -65,7 +65,7 @@ namespace LMS_content_api.Controllers
 		}
 
 		[HttpDelete("{contentId:guid}")]
-		public async Task<IActionResult> DeleteContent(Guid contentId)
+		public async Task<IActionResult> DeleteContent([FromRoute] Guid contentId)
 		{
 			if (contentId == Guid.Empty)
 				return BadRequest("Content ID cannot be empty.");
