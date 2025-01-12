@@ -10,6 +10,8 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["LMS-content-api/LMS-content-api.csproj", "LMS-content-api/"]
+COPY ["DAL/DAL.csproj", "DAL/"]
+COPY ["Logic/Logic.csproj", "Logic/"]
 RUN dotnet restore "./LMS-content-api/LMS-content-api.csproj"
 COPY . .
 WORKDIR "/src/LMS-content-api"
