@@ -12,8 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-//!TODO add env handling for kuber
-
 var connectionString = Env.GetString("DB_URL");
 var databaseName = Env.GetString("DB_NAME");
 
